@@ -36,19 +36,24 @@
 
             <Button
                 android:id="@+id/btnNext"
-                android:layout_width="25dp"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:text="Первый фрагмент" />
+                android:layout_weight="0.8"
+                android:text="ПервыйФраг" />
 
             <Button
                 android:id="@+id/btnBack"
-                android:layout_width="25dp"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_weight="1"
-                android:text="Второй фрагмент" />
+                android:layout_weight="0.7"
+                android:text="ВторойФраг" />
+
+            <Button
+                android:id="@+id/btnRestApi"
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="RestApi" />
         </LinearLayout>
 
 

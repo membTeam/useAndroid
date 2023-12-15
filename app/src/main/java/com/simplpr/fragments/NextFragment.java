@@ -27,7 +27,6 @@ public class NextFragment extends Fragment implements OnClickListener {
         btnRunDialog.setOnClickListener(this);
 
         return view;
-        //return inflater.inflate(R.layout.fragment_next, container, false);
     }
 
     @Override

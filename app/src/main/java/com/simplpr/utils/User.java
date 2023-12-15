@@ -1,4 +1,4 @@
-package com.simplpr;
+package com.simplpr.utils;
 
 public class User {
     private long id;

@@ -1,10 +1,9 @@
 package com.simplpr;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.simplpr.fragments.FirstFragment;
 import com.simplpr.fragments.NextFragment;
+import com.simplpr.utils.RESTapi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
     NextFragment nextFragment = new NextFragment();
 
 
-    //@SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         btnNext = findViewById(R.id.btnNext);
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 setNewFragment(firstFragment);
             }
         });
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +44,23 @@ public class MainActivity extends AppCompatActivity {
                 setNewFragment(nextFragment);
             }
         });
+
+        Button restAPI = findViewById(R.id.btnRestApi);
+        restAPI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String resultApi = RESTapi.methodGet();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Сообщение RESTapi")
+                        .setMessage(resultApi)
+                        .setCancelable(true);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
     }
 
     private void setNewFragment(Fragment fragment) {
