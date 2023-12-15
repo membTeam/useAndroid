@@ -12,10 +12,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.simplpr.fragments.FirstFragment;
 import com.simplpr.fragments.NextFragment;
 import com.simplpr.utils.RESTapi;
+import com.simplpr.utils.RunThread;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnNext, btnBack, btnFrNext;
+    private Button btnNext, btnBack, restAPI;
     FirstFragment firstFragment = new FirstFragment();
     NextFragment nextFragment = new NextFragment();
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnNext = findViewById(R.id.btnNext);
         btnBack = findViewById(R.id.btnBack);
+        restAPI = findViewById(R.id.btnRestApi);
 
         setNewFragment(firstFragment);
 
@@ -45,11 +47,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button restAPI = findViewById(R.id.btnRestApi);
+
         restAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String resultApi = RESTapi.methodGet();
+                String resultApi = "";
+
+                RunThread runThread = new RunThread();
+                runThread.thread.start();
+
+                restAPI.setEnabled(false);
+
+                try {
+                    runThread.thread.join();
+                    resultApi = RESTapi.getStrResult();
+                } catch (InterruptedException ex) {
+                    resultApi = "er: " + ex.getClass().getName();
+                }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Сообщение RESTapi")
@@ -58,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                restAPI.setEnabled(true);
             }
         });
 

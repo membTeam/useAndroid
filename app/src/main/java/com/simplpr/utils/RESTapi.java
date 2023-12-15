@@ -23,9 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RESTapi {
 
-    public static String methodGet() {
+    private static String strResult;
 
-        String strResult;
+    public static String getStrResult() {
+        return strResult;
+    }
+    public static void backgroundThreadProcessing() {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         Retrofit retrofit = new Retrofit.Builder()
@@ -40,7 +43,7 @@ public class RESTapi {
         try {
             Response<UserApiResponse> response = callSync.execute();
             UserApiResponse apiResponse = response.body();
-            strResult = String.valueOf(apiResponse);
+            strResult = apiResponse.getData().toString();
 
         } catch (Exception ex) {
             String sErr = ex.getMessage();
@@ -53,7 +56,6 @@ public class RESTapi {
             strResult = sErr;
         }
 
-        return strResult;
     }
 
 }
